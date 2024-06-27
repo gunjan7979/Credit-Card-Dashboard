@@ -1,0 +1,78 @@
+Thrilled to share my latest project: Credit Card Analysis with Power BI. 📶 
+
+
+
+𝐏𝐫𝐨𝐣𝐞𝐜𝐭 𝐎𝐛𝐣𝐞𝐜𝐭𝐢𝐯𝐞: To develop a comprehensive dashboard that provides real-time insights into key performance metrics and trends, enabling stakeholders to monitor and analyze Credit Card Transactions and Customer Behaviour effectively.
+
+
+
+Steps Performed:
+
+Importing data from csv files to Power Bi Model.
+
+There will be two views in the Dashboard
+
+First : Credit Card Transaction Report : which will provide data around Transactions, Revenue, Interest Earned, Quartely & Weekly, on the basis of Expenditure Type,  Card Category, Chips, Education Level, Customer Job, Income Group of the Customers.
+
+Second : Credit Card Customer Report : similar report as first one just with a split of Gender in all the KPIs. 
+
+
+
+Dax Query used in Power Bi:
+
+1. Current_week_Revenue = CALCULATE(
+
+    sum(credit_card[Revenue]),
+
+    FILTER(
+
+        ALL(credit_card),credit_card[Week_Num1] = max(credit_card[Week_Num1])))
+
+2. Last_week_Revenue = CALCULATE(
+
+    sum(credit_card[Revenue]),
+
+    FILTER(
+
+        ALL(credit_card),credit_card[Week_Num1] = max(credit_card[Week_Num1])-1))
+
+3. WoW_Revenue = DIVIDE((credit_card[Current_week_Revenue]-credit_card[Last_week_Revenue]),credit_card[Last_week_Revenue])
+
+4. Revenue = credit_card[Annual_Fees]+credit_card[Interest_Earned]+credit_card[Total_Trans_Amt]
+
+5. Income_Group = SWITCH(
+
+    TRUE(),
+
+     customer[Income]<35000, "Low",
+
+     customer[Income]>=35000 && customer[Income]<70000, "Med",
+
+     customer[Income]>=70000 , "High",
+
+     "unknown"
+
+)
+
+6. Age_Group = SWITCH(
+
+    TRUE(),
+
+     customer[Customer_Age]<30, "20-30",
+
+     customer[Customer_Age]>=30 && customer[Customer_Age] <40, "30-40",
+
+     customer[Customer_Age]>=40 && customer[Customer_Age] <50, "40-50",
+
+     customer[Customer_Age]>=50 && customer[Customer_Age] <60, "50-60",
+
+     customer[Customer_Age]>=60,"60+",
+
+     "unknown"
+
+)
+
+
+
+Data Insights:
+
